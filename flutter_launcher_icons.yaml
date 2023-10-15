@@ -1,0 +1,10 @@
+flutter_icons:
+  image_path: "icons/app_icon.png"
+  android: true
+  ios: true
+  # You can specify the sizes for different platforms here
+  # For example:
+  android: true
+  ios: true
+  image_path_android: "icons/png/logo-no-background.png"
+  image_path_ios: "icons/app_icon.png"
