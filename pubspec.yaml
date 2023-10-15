@@ -15,6 +15,11 @@ dependencies:
   flutter_typeahead: ^4.8.0
   flutter_launcher_icons: ^0.13.1
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "icons/png/logo-no-background.png"
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
