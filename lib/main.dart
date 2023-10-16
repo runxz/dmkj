@@ -11,7 +11,91 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MyHomePage(),
+        '/dosen': (context) => DosenPage(),
+        '/announcement': (context) => AnnouncementPage(),
+        '/feedback': (context) => FeedbackPage(),
+      },
+    );
+  }
+}
+
+class DosenPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green[800],
+        title: Text('Dosen Page'),
+      ),
+      body: Center(
+        child: Container(
+          width: 480,
+          padding: EdgeInsets.all(50),
+          decoration: BoxDecoration(
+            color: Colors.green[50],
+          ),
+          child: Column(
+            children: [
+              // Content for the Dosen page here
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AnnouncementPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green[800],
+        title: Text('Announcement Page'),
+      ),
+      body: Center(
+        child: Container(
+          width: 480,
+          padding: EdgeInsets.all(50),
+          decoration: BoxDecoration(
+            color: Colors.green[50],
+          ),
+          child: Column(
+            children: [
+              // Content for the Announcement page here
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class FeedbackPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green[800],
+        title: Text('Feedback Page'),
+      ),
+      body: Center(
+        child: Container(
+          width: 480,
+          padding: EdgeInsets.all(50),
+          decoration: BoxDecoration(
+            color: Colors.green[50],
+          ),
+          child: Column(
+            children: [
+              // Content for the Feedback page here
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -114,6 +198,49 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Colors.green[800],
         title: Text('Mahasiswa TRKJ'),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.green[800],
+              ),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('Homepage'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('Dosen'),
+              onTap: () {
+                Navigator.pushNamed(context, '/dosen');
+              },
+            ),
+            ListTile(
+              title: Text('Announcement'),
+              onTap: () {
+                Navigator.pushNamed(context, '/announcement');
+              },
+            ),
+            ListTile(
+              title: Text('Feedback'),
+              onTap: () {
+                Navigator.pushNamed(context, '/feedback');
+              },
+            ),
+          ],
+        ),
       ),
       body: Center(
         child: Container(
