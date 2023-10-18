@@ -25,21 +25,31 @@ class MyApp extends StatelessWidget {
 class DosenPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final PageController controller = PageController();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green[800],
+        backgroundColor: Colors.blue[800],
         title: Text('Dosen Page'),
       ),
       body: Center(
         child: Container(
           width: 480,
-          padding: EdgeInsets.all(50),
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: Colors.green[50],
+            color: Colors.blue[50],
           ),
-          child: Column(
-            children: [
-              // Content for the Dosen page here
+          child: PageView(
+            controller: controller,
+            children: const <Widget>[
+              Center(
+                child: Text('First Page'),
+              ),
+              Center(
+                child: Text('Second Page'),
+              ),
+              Center(
+                child: Text('Third Page'),
+              ),
             ],
           ),
         ),
@@ -53,7 +63,7 @@ class AnnouncementPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green[800],
+        backgroundColor: Colors.blue[800],
         title: Text('Announcement Page'),
       ),
       body: Center(
@@ -61,7 +71,7 @@ class AnnouncementPage extends StatelessWidget {
           width: 480,
           padding: EdgeInsets.all(50),
           decoration: BoxDecoration(
-            color: Colors.green[50],
+            color: Colors.blue[50],
           ),
           child: Column(
             children: [
@@ -79,7 +89,7 @@ class FeedbackPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green[800],
+        backgroundColor: Colors.blue[800],
         title: Text('Feedback Page'),
       ),
       body: Center(
@@ -87,7 +97,7 @@ class FeedbackPage extends StatelessWidget {
           width: 480,
           padding: EdgeInsets.all(50),
           decoration: BoxDecoration(
-            color: Colors.green[50],
+            color: Colors.blue[50],
           ),
           child: Column(
             children: [
@@ -196,7 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green[800],
+        backgroundColor: Colors.blue[800],
         title: Text('Mahasiswa TRKJ'),
       ),
       drawer: Drawer(
@@ -205,7 +215,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.green[800],
+                color: Colors.blue[800],
               ),
               child: Text(
                 'Menu',
@@ -247,13 +257,13 @@ class _MyHomePageState extends State<MyHomePage> {
           width: 480,
           padding: EdgeInsets.all(50),
           decoration: BoxDecoration(
-            color: Colors.green[50],
+            color: Colors.blue[50],
           ),
           child: Column(
             children: [
               Icon(
                 Icons.person,
-                color: Colors.green[800],
+                color: Colors.blue[800],
                 size: 94,
               ),
               Text(
@@ -311,7 +321,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   style: ButtonStyle(
                     backgroundColor:
-                        MaterialStateProperty.all(Colors.green[700]),
+                        MaterialStateProperty.all(Colors.blue[700]),
                   ),
                   child: Text('Search'),
                 ),
