@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart'; // Import the url_launcher package
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -25,21 +26,31 @@ class MyApp extends StatelessWidget {
 class DosenPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final PageController controller = PageController();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green[800],
+        backgroundColor: Colors.blue[800],
         title: Text('Dosen Page'),
       ),
       body: Center(
         child: Container(
           width: 480,
-          padding: EdgeInsets.all(50),
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: Colors.green[50],
+            color: Colors.blue[50],
           ),
-          child: Column(
-            children: [
-              // Content for the Dosen page here
+          child: PageView(
+            controller: controller,
+            children: const <Widget>[
+              Center(
+                child: Text('First Page'),
+              ),
+              Center(
+                child: Text('Second Page'),
+              ),
+              Center(
+                child: Text('Third Page'),
+              ),
             ],
           ),
         ),
@@ -53,7 +64,7 @@ class AnnouncementPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green[800],
+        backgroundColor: Colors.blue[800],
         title: Text('Announcement Page'),
       ),
       body: Center(
@@ -61,7 +72,7 @@ class AnnouncementPage extends StatelessWidget {
           width: 480,
           padding: EdgeInsets.all(50),
           decoration: BoxDecoration(
-            color: Colors.green[50],
+            color: Colors.blue[50],
           ),
           child: Column(
             children: [
@@ -79,7 +90,7 @@ class FeedbackPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green[800],
+        backgroundColor: Colors.blue[800],
         title: Text('Feedback Page'),
       ),
       body: Center(
@@ -87,7 +98,7 @@ class FeedbackPage extends StatelessWidget {
           width: 480,
           padding: EdgeInsets.all(50),
           decoration: BoxDecoration(
-            color: Colors.green[50],
+            color: Colors.blue[50],
           ),
           child: Column(
             children: [
@@ -115,6 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       setState(() {
         searchResults = [];
+        searchSuggestions = [];
       });
       final response = await http.get(
         Uri.parse(
@@ -196,7 +208,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green[800],
+        backgroundColor: Colors.blue[800],
         title: Text('Mahasiswa TRKJ'),
       ),
       drawer: Drawer(
@@ -205,7 +217,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.green[800],
+                color: Colors.blue[800],
               ),
               child: Text(
                 'Menu',
@@ -247,13 +259,13 @@ class _MyHomePageState extends State<MyHomePage> {
           width: 480,
           padding: EdgeInsets.all(50),
           decoration: BoxDecoration(
-            color: Colors.green[50],
+            color: Colors.blue[50],
           ),
           child: Column(
             children: [
               Icon(
                 Icons.person,
-                color: Colors.green[800],
+                color: Colors.blue[800],
                 size: 94,
               ),
               Text(
@@ -311,7 +323,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   style: ButtonStyle(
                     backgroundColor:
-                        MaterialStateProperty.all(Colors.green[700]),
+                        MaterialStateProperty.all(Colors.blue[700]),
                   ),
                   child: Text('Search'),
                 ),
@@ -322,54 +334,119 @@ class _MyHomePageState extends State<MyHomePage> {
                   itemCount: searchResults.length,
                   itemBuilder: (context, index) {
                     return Card(
+                      elevation: 3,
                       margin: EdgeInsets.all(8.0),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Center(
-                              child: ClipOval(
-                                child: Image.network(
-                                  searchResults[index]['img_path'],
-                                  width: 120,
-                                  height: 120,
-                                  fit: BoxFit.cover,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Stack(
+                            children: [
+                              Container(
+                                height: 150,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                  ),
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                      searchResults[index]['img_path'],
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                            SizedBox(height: 16.0),
-                            SizedBox(height: 8.0),
-                            Text(
-                              'Nama: ${searchResults[index]['name'] ?? ''}',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                              Positioned(
+                                top: 8,
+                                right: 8,
+                                child: Container(
+                                  padding: EdgeInsets.all(4),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Text(
+                                    '${searchResults[index]['angkatan'] ?? ''}',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
                               ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Nama: ${searchResults[index]['name'] ?? ''}',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 8.0),
+                                Text(
+                                  'NPM: ${searchResults[index]['npm'] ?? ''}',
+                                ),
+                                Text(
+                                  'Hobi: ${searchResults[index]['hobi'] ?? ''}',
+                                  style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                                Text(
+                                  'Quotes: ${searchResults[index]['quotes'] ?? ''}',
+                                ),
+                                SizedBox(height: 8.0),
+                                // Create a WhatsApp link based on the 'whatsapp' field
+                                // Create a WhatsApp link based on the 'whatsapp' field
+                                // Create a WhatsApp link based on the 'whatsapp' field
+                                Column(
+                                  children: [
+                                    if (searchResults[index]['whatsapp'] !=
+                                        null)
+                                      Row(
+                                        children: [
+                                          Icon(Icons.phone,
+                                              color: Colors.green),
+                                          SizedBox(width: 4.0),
+                                          TextButton(
+                                            onPressed: () async {
+                                              final whatsappNumber =
+                                                  searchResults[index]
+                                                      ['whatsapp'];
+                                              final message =
+                                                  'Assalamualaikum wr.wb';
+                                              final uri = Uri.parse(
+                                                  'https://wa.me/$whatsappNumber?text=${Uri.encodeFull(message)}');
+                                              print('URL: $uri');
+                                              try {
+                                                await launchUrl(
+                                                    uri); // Directly launch the URL
+                                              } catch (e) {
+                                                print(
+                                                    'Error launching URL: $e');
+                                                // Handle the error and display an appropriate message to the user
+                                              }
+                                            },
+                                            child: Text('WhatsApp'),
+                                          ),
+                                        ],
+                                      ),
+                                  ],
+                                )
+                              ],
                             ),
-                            SizedBox(
-                              height: 8.0,
-                            ),
-                            Text('NPM: ${searchResults[index]['npm'] ?? ''}'),
-                            Text(
-                                'Whatsapp: ${searchResults[index]['whatsapp'] ?? ''}'),
-                            Text(
-                              'Angkatan: ${searchResults[index]['angkatan'] ?? ''}',
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                            Text(
-                              'Hobi: ${searchResults[index]['hobi'] ?? ''}',
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                            Text(
-                                'Quotes: ${searchResults[index]['quotes'] ?? ''}'),
-                            SizedBox(height: 16.0),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     );
                   },

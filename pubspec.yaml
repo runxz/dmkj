@@ -1,8 +1,8 @@
-name: dmkj
+name: data_TRKJ
 description: Data Mahasiswa Trkj.
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.1.0
 
 environment:
   sdk: '>=3.1.2 <4.0.0'
@@ -14,11 +14,15 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_typeahead: ^4.8.0
   flutter_launcher_icons: ^0.13.1
+  android_intent: ^2.0.0
+  url_launcher: ^6.1.14
+  url_launcher_android: ^6.1.0
+  url_launcher_platform_interface: ^2.1.5
 
 flutter_icons:
   android: true
   ios: true
-  image_path: "icons/png/logo-no-background.png"
+  image_path: "icons/png/logo-color.png"
 
 dev_dependencies:
   flutter_test:
